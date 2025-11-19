@@ -194,7 +194,7 @@ ER-модель включает следующие составляющие:
 - Order 1 - N OrderItem
 - Product 1 - N OrderItem
 
-	Таким образом получаем схему сущностей показанную на рисунке 1.
+Таким образом получаем схему сущностей показанную на рисунке 1.
 
 ![БД интернет-магазин](БД_интернет-магазин.jpg)
 
@@ -202,7 +202,7 @@ ER-модель включает следующие составляющие:
 
 базы данных интернет-магазина
 
-	На этом разработка концептуальной модели в нашем примере заканчивается. Следует понимать, что данный пример концептуальной модели не позволит нам разработать базу данных для реального использования, так как в реальности нам потребуется учитывать намного больше сущностей и их свойств, для корректного функционирования интернет-магазина, однако, ка пример поможет нам понять суть концептуального проектирования.
+На этом разработка концептуальной модели в нашем примере заканчивается. Следует понимать, что данный пример концептуальной модели не позволит нам разработать базу данных для реального использования, так как в реальности нам потребуется учитывать намного больше сущностей и их свойств, для корректного функционирования интернет-магазина, однако, ка пример поможет нам понять суть концептуального проектирования.
 ## <a name="_toc8371"></a>**1.2. Логическое проектирование**
 Логическое проектирование реляционных баз данных - это этап разработки БД, на котором создаётся логическая модель данных, независимая от конкретной СУБД, но отражающая нужды предметной области и обеспечивающая корректность, непротиворечивость и эффективность хранения данных.
 
@@ -314,7 +314,7 @@ ER-модель включает следующие составляющие:
 |Цена|числовое|не пустое|
 |Количество|числовое|не пустое|
 
-	Как можно заметить в таблице 1.2.5 используется поле «Цена», хотя такое поле уже есть у сущности «Товар», которая также включается как поле этой же таблицы. Причина такого решения в том, что цена на товары могут меняться, однако, цена уже купленного товара, хранящегося в таблице с позициями товаров в заказе, - не должна.
+Как можно заметить в таблице 1.2.5 используется поле «Цена», хотя такое поле уже есть у сущности «Товар», которая также включается как поле этой же таблицы. Причина такого решения в том, что цена на товары могут меняться, однако, цена уже купленного товара, хранящегося в таблице с позициями товаров в заказе, - не должна.
 ## <a name="_toc16862"></a>**1.3. Физическое проектирование**
 Физическое проектирование реляционных баз данных - это этап, на котором логическая модель преобразуется в конкретную структуру хранения данных в выбранной СУБД с учётом производительности, объёмов данных, требований к отказоустойчивости и особенностей конкретной платформы (PostgreSQL, MySQL, Oracle, SQL Server и др.).
 
@@ -415,7 +415,7 @@ ER-модель включает следующие составляющие:
 - денормализация,
 - материализованные представления.
 
-	Теперь рассмотрим физическое проектирование на примере интернет-магазина. В разделе 1.3 мы составили таблицы для каждой сущности. Теперь конкретезируем эти таблицы, а затем опишем SQL-код для их создания.
+Теперь рассмотрим физическое проектирование на примере интернет-магазина. В разделе 1.3 мы составили таблицы для каждой сущности. Теперь конкретезируем эти таблицы, а затем опишем SQL-код для их создания.
 
 Таблица 1.3.1: Покупатель (User)
 
@@ -466,7 +466,7 @@ ER-модель включает следующие составляющие:
 |price|numeric(10, 2)|not null|
 |quantity|int|not null|
 
-	Как можно увидеть в таблицах 1.3.1 - 1.3.5, мы используем поле «id» типа «PK» с ограничением «serial» в качестве ключа, что означает, что мы полагаемся на СУБД в генерации ключей как последовательных целых чисел.
+Как можно увидеть в таблицах 1.3.1 - 1.3.5, мы используем поле «id» типа «PK» с ограничением «serial» в качестве ключа, что означает, что мы полагаемся на СУБД в генерации ключей как последовательных целых чисел.
 
 	Схему физической можели можно увидель на рисунке 2.
 
@@ -476,9 +476,9 @@ ER-модель включает следующие составляющие:
 
 базы данных интернет-магазина
 
-	Кроме всего прочего, на этом этапе нам нужно включить индексы, ограничения связи и прочие ограничения, интересующих нас сущностей. Начнем с индексов.
+Кроме всего прочего, на этом этапе нам нужно включить индексы, ограничения связи и прочие ограничения, интересующих нас сущностей. Начнем с индексов.
 
-	Имеет смысл включить следующие индексы, для ускорения поиска по таблицам:
+Имеет смысл включить следующие индексы, для ускорения поиска по таблицам:
 
 - Индексы по ключам таблиц (User.id, Category.id, Product.id, Order.id, OrderItem.id). Такие индексы обычно автоматически генерируются СУБД.
 - Индекс по категории продукта (Product.categoty\_id)
@@ -489,9 +489,9 @@ ER-модель включает следующие составляющие:
 - Индекс для покупателя в заказах (Order.user\_id)
 - Индекс по статусу заказа (Order.status)
 
-	Все связи у нас являются каскадными, то есть при удалении из одной записи, все записи ссылающиеся на удаляемую запись из других сущностей будут также стираться.
+Все связи у нас являются каскадными, то есть при удалении из одной записи, все записи ссылающиеся на удаляемую запись из других сущностей будут также стираться.
 
-	Также стоит ограничить количество товаров в позиции заказа быть больше 0 (т. е.  OrderItem.quantity > 0), цена товара была больше или равна 0 (в случае акций может быть 0, Product.price >= 0), количество товара на складе больше или равно 0 (Product.stock >= 0). 
+Также стоит ограничить количество товаров в позиции заказа быть больше 0 (т. е.  OrderItem.quantity > 0), цена товара была больше или равна 0 (в случае акций может быть 0, Product.price >= 0), количество товара на складе больше или равно 0 (Product.stock >= 0). 
 
 SQL код для создания всех таблиц, индексов и ограничений приведен в приложении. Однако стоит помнить, что при использовании ORM, SQL код по созданию таблиц генерируется фреймворком автоматически, а потому нужды писать этот код самостоятельно нет.
 ## <a name="_toc20394"></a>**1.4. Реализация модели данных с помощью ORM**
@@ -505,11 +505,11 @@ ORM позволяет:
 - выполнять запросы к базе - через метод вызова, а не SQL-строки;
 - автоматически создавать и мигрировать структуру БД.
 
-	ORM технологии автоматически генерируют SQL-код так, что необходимость писать SQL-запросы вручную практически отпадает. Причем ORM позволяют использовать и чистый SQL код при необходимости.
+ORM технологии автоматически генерируют SQL-код так, что необходимость писать SQL-запросы вручную практически отпадает. Причем ORM позволяют использовать и чистый SQL код при необходимости.
 
-	Рассмотрим достоинства и недостатки ORM-технологий.
+Рассмотрим достоинства и недостатки ORM-технологий.
 
-	Достоинства:
+Достоинства:
 
 - Скорость разработки - не нужно писать SQL для простых операций.
 - Модель как часть кода - все сущности описаны прямо в коде приложения.
@@ -517,13 +517,13 @@ ORM позволяет:
 - Портируемость - можно сменить СУБД, почти не меняя код (хотя не всегда легко).
 - Работа с данными как с объектами - особенно полезно в OO-приложениях.
 
-	Недостатки:
+Недостатки:
 
 - Потенциальная потеря производительности - особенно заметна при неявных JOIN или N+1 запросах, а также ORM абстрагирует SQL, но это может скрывать важные детали оптимизации.
 - Недостаток гибкости - при очень сложных запросах проще и быстрее использовать «сырой» SQL.
 - Невозможность полной настройки - ORM за абстракцией скрывает некоторые особые возможности конкретных экземпляров СУБД и их не получается использовать без «сырого» SQL кода.
 
-	Код для django для примера интернет-магазина приведен в приложении.
+Код для django для примера интернет-магазина приведен в приложении.
 # **Вывод**
 В данной работе мы рассмотрели процесс проектирования модели реляционной базы данных по всем этапам - от концептуального до физической реализации с помощью ORM. Разобрали каждый этап на примере интернет-магазина. А также написали работающий код реализации этой базы данных. В заключение хочется сказать, что проектирование и создание базы данных - это не легкий процесс, еще сложнее процесс интеграции этой базы данных с кодом приложения, потому так важны инструменты облегчающие этот процесс. ORM технологии - это яркий пример таких инструментов. Их использование сильно облегчает работу разработчикам, пусть эти инструменты и не лишены недостатков.
 # **Список литературы**
@@ -566,7 +566,7 @@ SQL код для раздела 1.3:
 
 *-- ============================*
 
-*CREATE TABLE product (*
+  *CREATE TABLE product (*
 
     *id SERIAL PRIMARY KEY,*
 
@@ -582,15 +582,15 @@ SQL код для раздела 1.3:
 
     *created\_at TIMESTAMP NOT NULL DEFAULT NOW()*
 
-*);*
+  *);*
 
 *-- Индекс по категории*
 
-*CREATE INDEX idx\_product\_category ON product(category\_id);*
+  *CREATE INDEX idx\_product\_category ON product(category\_id);*
 
 *-- Индекс по цене (для фильтров)*
 
-*CREATE INDEX idx\_product\_price ON product(price);*
+  *CREATE INDEX idx\_product\_price ON product(price);*
 
 *-- ============================*
 
@@ -598,7 +598,7 @@ SQL код для раздела 1.3:
 
 *-- ============================*
 
-*CREATE TABLE user (*
+  *CREATE TABLE user (*
 
     *id SERIAL PRIMARY KEY,*
 
@@ -608,7 +608,7 @@ SQL код для раздела 1.3:
 
     *date\_joined TIMESTAMP NOT NULL DEFAULT NOW()*
 
-*);*
+  *);*
 
 *-- ============================*
 
@@ -616,7 +616,7 @@ SQL код для раздела 1.3:
 
 *-- ============================*
 
-*CREATE TABLE "order" (*
+  *CREATE TABLE "order" (*
 
     *id SERIAL PRIMARY KEY,*
 
@@ -628,15 +628,15 @@ SQL код для раздела 1.3:
 
     *updated\_at TIMESTAMP NOT NULL DEFAULT NOW()*
 
-*);*
+  *);*
 
 *-- Индекс для поиска заказов пользователя*
 
-*CREATE INDEX idx\_order\_user\_id ON "order"(user\_id);*
+  *CREATE INDEX idx\_order\_user\_id ON "order"(user\_id);*
 
 *-- Индекс по статусу (для фильтрации)*
 
-*CREATE INDEX idx\_order\_status ON "order"(status);*
+  *CREATE INDEX idx\_order\_status ON "order"(status);*
 
 *-- ============================*
 
@@ -644,7 +644,7 @@ SQL код для раздела 1.3:
 
 *-- ============================*
 
-*CREATE TABLE order\_item (*
+  *CREATE TABLE order\_item (*
 
     *id SERIAL PRIMARY KEY,*
 
@@ -656,122 +656,122 @@ SQL код для раздела 1.3:
 
     *quantity INTEGER NOT NULL CHECK (quantity > 0)*
 
-*);*
+  *);*
 
 *-- Часто используемый составной индекс:*
 
-*CREATE INDEX idx\_orderitem\_order\_product*
+  *CREATE INDEX idx\_orderitem\_order\_product*
 
-*ON order\_item(order\_id, product\_id);*
+  *ON order\_item(order\_id, product\_id);*
 
 Код на Python для фреймворка django (файл models.py):
 
-*from django.db import models*
+  *from django.db import models*
 
-*from django.contrib.auth.models import User*
+  *from django.contrib.auth.models import User*
 
-*class Category(models.Model):*
+  *class Category(models.Model):*
 
-    *name = models.CharField(max\_length=255, unique=True)*
+      *name = models.CharField(max\_length=255, unique=True)*
 
-    *parent = models.ForeignKey(*
+      *parent = models.ForeignKey(*
 
-        *"self",*
+          *"self",*
 
-        *on\_delete=models.SET\_NULL,*
+          *on\_delete=models.SET\_NULL,*
 
-        *null=True,*
+          *null=True,*
 
-        *blank=True,*
+          *blank=True,*
 
-        *related\_name="subcategories"*
+          *related\_name="subcategories"*
 
-    *)*
+      *)*
 
-    *def \_\_str\_\_(self):*
+      *def \_\_str\_\_(self):*
 
-        *return self.name*
+          *return self.name*
 
-*class Product(models.Model):*
+  *class Product(models.Model):*
 
-    *name = models.CharField(max\_length=255)*
+      *name = models.CharField(max\_length=255)*
 
-    *description = models.TextField(blank=True)*
+      *description = models.TextField(blank=True)*
 
-    *price = models.DecimalField(max\_digits=10, decimal\_places=2)*
+      *price = models.DecimalField(max\_digits=10, decimal\_places=2)*
 
-    *stock = models.PositiveIntegerField()*
+      *stock = models.PositiveIntegerField()*
 
-    *category = models.ForeignKey(Category, on\_delete=models.PROTECT, related\_name="products")*
+      *category = models.ForeignKey(Category, on\_delete=models.PROTECT, related\_name="products")*
 
-    *created\_at = models.DateTimeField(auto\_now\_add=True)*
+      *created\_at = models.DateTimeField(auto\_now\_add=True)*
 
-    *def \_\_str\_\_(self):*
+      *def \_\_str\_\_(self):*
 
-        *return self.name*
+          *return self.name*
 
-*class Order(models.Model):*
+  *class Order(models.Model):*
 
-    *STATUS\_CHOICES = [*
+      *STATUS\_CHOICES = [*
 
-        *("created", "Создан"),*
+          *("created", "Создан"),*
 
-        *("paid", "Оплачен"),*
+          *("paid", "Оплачен"),*
 
-        *("shipped", "Отправлен"),*
+          *("shipped", "Отправлен"),*
 
-        *("completed", "Завершён"),*
+          *("completed", "Завершён"),*
 
-        *("cancelled", "Отменён"),*
+          *("cancelled", "Отменён"),*
 
-    *]*
+      *]*
 
-    *user = models.ForeignKey(User, on\_delete=models.CASCADE, related\_name="orders")*
+      *user = models.ForeignKey(User, on\_delete=models.CASCADE, related\_name="orders")*
 
-    *status = models.CharField(max\_length=20, choices=STATUS\_CHOICES, default="created")*
+      *status = models.CharField(max\_length=20, choices=STATUS\_CHOICES, default="created")*
 
-    *created\_at = models.DateTimeField(auto\_now\_add=True)*
+      *created\_at = models.DateTimeField(auto\_now\_add=True)*
 
-    *updated\_at = models.DateTimeField(auto\_now=True)*
+      *updated\_at = models.DateTimeField(auto\_now=True)*
 
-    *def \_\_str\_\_(self):*
+      *def \_\_str\_\_(self):*
 
-        *return f"Order #{self.id}"*
+          *return f"Order #{self.id}"*
 
-*class OrderItem(models.Model):*
+  *class OrderItem(models.Model):*
 
-    *order = models.ForeignKey(Order, on\_delete=models.CASCADE, related\_name="items")*
+      *order = models.ForeignKey(Order, on\_delete=models.CASCADE, related\_name="items")*
 
-    *product = models.ForeignKey(Product, on\_delete=models.PROTECT)*
+      *product = models.ForeignKey(Product, on\_delete=models.PROTECT)*
 
-    *price = models.DecimalField(max\_digits=10, decimal\_places=2)  # фиксирует цену*
+      *price = models.DecimalField(max\_digits=10, decimal\_places=2)  # фиксирует цену*
 
-    *quantity = models.PositiveIntegerField()*
+      *quantity = models.PositiveIntegerField()*
 
-    *def \_\_str\_\_(self):*
+      *def \_\_str\_\_(self):*
 
-        *return f"{self.product.name} × {self.quantity}"*
+          *return f"{self.product.name} × {self.quantity}"*
 
-*class Cart(models.Model):*
+  *class Cart(models.Model):*
 
-    *user = models.OneToOneField(User, on\_delete=models.CASCADE, related\_name="cart")*
+      *user = models.OneToOneField(User, on\_delete=models.CASCADE, related\_name="cart")*
 
-    *def \_\_str\_\_(self):*
+      *def \_\_str\_\_(self):*
 
-        *return f"Cart of {self.user.username}"*
+          *return f"Cart of {self.user.username}"*
 
-*class CartItem(models.Model):*
+  *class CartItem(models.Model):*
 
-    *cart = models.ForeignKey(Cart, on\_delete=models.CASCADE, related\_name="items")*
+      *cart = models.ForeignKey(Cart, on\_delete=models.CASCADE, related\_name="items")*
 
-    *product = models.ForeignKey(Product, on\_delete=models.CASCADE)*
+      *product = models.ForeignKey(Product, on\_delete=models.CASCADE)*
 
-    *quantity = models.PositiveIntegerField()*
+      *quantity = models.PositiveIntegerField()*
 
-    *class Meta:*
+      *class Meta:*
 
-        *unique\_together = ("cart", "product")*
+          *unique\_together = ("cart", "product")*
 
-    *def \_\_str\_\_(self):*
+      *def \_\_str\_\_(self):*
 
-        *return f"{self.product.name} × {self.quantity}"*
+          *return f"{self.product.name} × {self.quantity}"*
