@@ -540,11 +540,11 @@ ORM технологии автоматически генерируют SQL-к�
 # <a name="_toc13327"></a>**Приложение**
 SQL код для раздела 1.3:
 
-*-- ============================*
+    *-- ============================*
 
-*-- 1. Таблица Category*
+    *-- 1. Таблица Category*
 
-*-- ============================*
+    *-- ============================*
 
     *CREATE TABLE category (*
 
@@ -556,222 +556,222 @@ SQL код для раздела 1.3:
 
     *);*
 
-*-- Индекс для ускорения выборок подкатегорий*
+    *-- Индекс для ускорения выборок подкатегорий*
 
-*CREATE INDEX idx\_category\_parent\_id ON category(parent\_id);*
+    *CREATE INDEX idx\_category\_parent\_id ON category(parent\_id);*
 
-*-- ============================*
+    *-- ============================*
 
-*-- 2. Таблица Product*
+    *-- 2. Таблица Product*
 
-*-- ============================*
+    *-- ============================*
 
-*CREATE TABLE product (*
+    *CREATE TABLE product (*
 
-*id SERIAL PRIMARY KEY,*
+    *id SERIAL PRIMARY KEY,*
 
-*name VARCHAR(255) NOT NULL,*
+    *name VARCHAR(255) NOT NULL,*
 
-*description TEXT,*
+    *description TEXT,*
 
-*price NUMERIC(10, 2) NOT NULL CHECK (price >= 0),*
+    *price NUMERIC(10, 2) NOT NULL CHECK (price >= 0),*
 
-*stock INTEGER NOT NULL CHECK (stock >= 0),*
+    *stock INTEGER NOT NULL CHECK (stock >= 0),*
 
-*category\_id INTEGER NOT NULL REFERENCES category(id) ON DELETE RESTRICT,*
+    *category\_id INTEGER NOT NULL REFERENCES category(id) ON DELETE RESTRICT,*
 
-*created\_at TIMESTAMP NOT NULL DEFAULT NOW()*
+    *created\_at TIMESTAMP NOT NULL DEFAULT NOW()*
 
-*);*
+    *);*
 
-*-- Индекс по категории*
+    *-- Индекс по категории*
 
-*CREATE INDEX idx\_product\_category ON product(category\_id);*
+    *CREATE INDEX idx\_product\_category ON product(category\_id);*
 
-*-- Индекс по цене (для фильтров)*
+    *-- Индекс по цене (для фильтров)*
 
-*CREATE INDEX idx\_product\_price ON product(price);*
+    *CREATE INDEX idx\_product\_price ON product(price);*
 
-*-- ============================*
+    *-- ============================*
 
-*-- 3. Таблица Users*
+    *-- 3. Таблица Users*
 
-*-- ============================*
+    *-- ============================*
 
-*CREATE TABLE user (*
+    *CREATE TABLE user (*
 
-*id SERIAL PRIMARY KEY,*
+    *id SERIAL PRIMARY KEY,*
 
-*username VARCHAR(150) UNIQUE NOT NULL,*
+    *username VARCHAR(150) UNIQUE NOT NULL,*
 
-*email VARCHAR(255) UNIQUE NOT NULL,*
+    *email VARCHAR(255) UNIQUE NOT NULL,*
 
-*date\_joined TIMESTAMP NOT NULL DEFAULT NOW()*
+    *date\_joined TIMESTAMP NOT NULL DEFAULT NOW()*
 
-*);*
+    *);*
 
-*-- ============================*
+    *-- ============================*
 
-*-- 4. Таблица Order*
+    *-- 4. Таблица Order*
 
-*-- ============================*
+    *-- ============================*
 
-*CREATE TABLE "order" (*
+    *CREATE TABLE "order" (*
 
-*id SERIAL PRIMARY KEY,*
+    *id SERIAL PRIMARY KEY,*
 
-*user\_id INTEGER NOT NULL REFERENCES user(id) ON DELETE CASCADE,*
+    *user\_id INTEGER NOT NULL REFERENCES user(id) ON DELETE CASCADE,*
 
-*status VARCHAR(20) NOT NULL DEFAULT 'created',*
+    *status VARCHAR(20) NOT NULL DEFAULT 'created',*
 
-*created\_at TIMESTAMP NOT NULL DEFAULT NOW(),*
+    *created\_at TIMESTAMP NOT NULL DEFAULT NOW(),*
 
-*updated\_at TIMESTAMP NOT NULL DEFAULT NOW()*
+    *updated\_at TIMESTAMP NOT NULL DEFAULT NOW()*
 
-*);*
+    *);*
 
-*-- Индекс для поиска заказов пользователя*
+    *-- Индекс для поиска заказов пользователя*
 
-*CREATE INDEX idx\_order\_user\_id ON "order"(user\_id);*
+    *CREATE INDEX idx\_order\_user\_id ON "order"(user\_id);*
 
-*-- Индекс по статусу (для фильтрации)*
+    *-- Индекс по статусу (для фильтрации)*
 
-*CREATE INDEX idx\_order\_status ON "order"(status);*
+    *CREATE INDEX idx\_order\_status ON "order"(status);*
 
-*-- ============================*
+    *-- ============================*
 
-*-- 5. Таблица OrderItem*
+    *-- 5. Таблица OrderItem*
 
-*-- ============================*
+    *-- ============================*
 
-*CREATE TABLE order\_item (*
+    *CREATE TABLE order\_item (*
 
-*id SERIAL PRIMARY KEY,*
+    *id SERIAL PRIMARY KEY,*
 
-*order\_id INTEGER NOT NULL REFERENCES "order"(id) ON DELETE CASCADE,*
+    *order\_id INTEGER NOT NULL REFERENCES "order"(id) ON DELETE CASCADE,*
 
-*product\_id INTEGER NOT NULL REFERENCES product(id) ON DELETE RESTRICT,*
+    *product\_id INTEGER NOT NULL REFERENCES product(id) ON DELETE RESTRICT,*
 
-*price NUMERIC(10,2) NOT NULL CHECK (price >= 0),*
+    *price NUMERIC(10,2) NOT NULL CHECK (price >= 0),*
 
-*quantity INTEGER NOT NULL CHECK (quantity > 0)*
+    *quantity INTEGER NOT NULL CHECK (quantity > 0)*
 
-*);*
+    *);*
 
-*-- Часто используемый составной индекс:*
+    *-- Часто используемый составной индекс:*
 
-*CREATE INDEX idx\_orderitem\_order\_product*
+    *CREATE INDEX idx\_orderitem\_order\_product*
 
-*ON order\_item(order\_id, product\_id);*
+    *ON order\_item(order\_id, product\_id);*
 
 Код на Python для фреймворка django (файл models.py):
 
-`*from django.db import models*
+    *from django.db import models*
 
-*from django.contrib.auth.models import User*
+    *from django.contrib.auth.models import User*
 
-*class Category(models.Model):*
+    *class Category(models.Model):*
 
-*name = models.CharField(max\_length=255, unique=True)*
+    *name = models.CharField(max\_length=255, unique=True)*
 
-*parent = models.ForeignKey(*
+    *parent = models.ForeignKey(*
 
-    *"self",*
+        *"self",*
 
-    *on\_delete=models.SET\_NULL,*
+        *on\_delete=models.SET\_NULL,*
 
-    *null=True,*
+        *null=True,*
 
-    *blank=True,*
+        *blank=True,*
 
-    *related\_name="subcategories"*
+        *related\_name="subcategories"*
 
-*)*
+    *)*
 
-*def \_\_str\_\_(self):*
+    *def \_\_str\_\_(self):*
 
-    *return self.name*
+        *return self.name*
 
-*class Product(models.Model):*
+    *class Product(models.Model):*
 
-*name = models.CharField(max\_length=255)*
+    *name = models.CharField(max\_length=255)*
 
-*description = models.TextField(blank=True)*
+    *description = models.TextField(blank=True)*
 
-*price = models.DecimalField(max\_digits=10, decimal\_places=2)*
+    *price = models.DecimalField(max\_digits=10, decimal\_places=2)*
 
-*stock = models.PositiveIntegerField()*
+    *stock = models.PositiveIntegerField()*
 
-*category = models.ForeignKey(Category, on\_delete=models.PROTECT, related\_name="products")*
+    *category = models.ForeignKey(Category, on\_delete=models.PROTECT, related\_name="products")*
 
-*created\_at = models.DateTimeField(auto\_now\_add=True)*
+    *created\_at = models.DateTimeField(auto\_now\_add=True)*
 
-*def \_\_str\_\_(self):*
+    *def \_\_str\_\_(self):*
 
-    *return self.name*
+        *return self.name*
 
-*class Order(models.Model):*
+    *class Order(models.Model):*
 
-*STATUS\_CHOICES = [*
+    *STATUS\_CHOICES = [*
 
-    *("created", "Создан"),*
+        *("created", "Создан"),*
 
-    *("paid", "Оплачен"),*
+        *("paid", "Оплачен"),*
 
-    *("shipped", "Отправлен"),*
+        *("shipped", "Отправлен"),*
 
-    *("completed", "Завершён"),*
+        *("completed", "Завершён"),*
 
-    *("cancelled", "Отменён"),*
+        *("cancelled", "Отменён"),*
 
-*]*
+    *]*
 
-*user = models.ForeignKey(User, on\_delete=models.CASCADE, related\_name="orders")*
+    *user = models.ForeignKey(User, on\_delete=models.CASCADE, related\_name="orders")*
 
-*status = models.CharField(max\_length=20, choices=STATUS\_CHOICES, default="created")*
+    *status = models.CharField(max\_length=20, choices=STATUS\_CHOICES, default="created")*
 
-*created\_at = models.DateTimeField(auto\_now\_add=True)*
+    *created\_at = models.DateTimeField(auto\_now\_add=True)*
 
-*updated\_at = models.DateTimeField(auto\_now=True)*
+    *updated\_at = models.DateTimeField(auto\_now=True)*
 
-*def \_\_str\_\_(self):*
+    *def \_\_str\_\_(self):*
 
-    *return f"Order #{self.id}"*
+        *return f"Order #{self.id}"*
 
-*class OrderItem(models.Model):*
+    *class OrderItem(models.Model):*
 
-*order = models.ForeignKey(Order, on\_delete=models.CASCADE, related\_name="items")*
+    *order = models.ForeignKey(Order, on\_delete=models.CASCADE, related\_name="items")*
 
-*product = models.ForeignKey(Product, on\_delete=models.PROTECT)*
+    *product = models.ForeignKey(Product, on\_delete=models.PROTECT)*
 
-*price = models.DecimalField(max\_digits=10, decimal\_places=2)  # фиксирует цену*
+    *price = models.DecimalField(max\_digits=10, decimal\_places=2)  # фиксирует цену*
 
-*quantity = models.PositiveIntegerField()*
+    *quantity = models.PositiveIntegerField()*
 
-*def \_\_str\_\_(self):*
+    *def \_\_str\_\_(self):*
 
-    *return f"{self.product.name} × {self.quantity}"*
+        *return f"{self.product.name} × {self.quantity}"*
 
-*class Cart(models.Model):*
+    *class Cart(models.Model):*
 
-*user = models.OneToOneField(User, on\_delete=models.CASCADE, related\_name="cart")*
+    *user = models.OneToOneField(User, on\_delete=models.CASCADE, related\_name="cart")*
 
-*def \_\_str\_\_(self):*
+    *def \_\_str\_\_(self):*
 
-    *return f"Cart of {self.user.username}"*
+        *return f"Cart of {self.user.username}"*
 
-*class CartItem(models.Model):*
+    *class CartItem(models.Model):*
 
-*cart = models.ForeignKey(Cart, on\_delete=models.CASCADE, related\_name="items")*
+    *cart = models.ForeignKey(Cart, on\_delete=models.CASCADE, related\_name="items")*
 
-*product = models.ForeignKey(Product, on\_delete=models.CASCADE)*
+    *product = models.ForeignKey(Product, on\_delete=models.CASCADE)*
 
-*quantity = models.PositiveIntegerField()*
+    *quantity = models.PositiveIntegerField()*
 
-*class Meta:*
+    *class Meta:*
 
-    *unique\_together = ("cart", "product")*
+        *unique\_together = ("cart", "product")*
 
-*def \_\_str\_\_(self):*
+    *def \_\_str\_\_(self):*
 
-    *return f"{self.product.name} × {self.quantity}"*`
+        *return f"{self.product.name} × {self.quantity}"*
