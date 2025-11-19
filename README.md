@@ -666,112 +666,112 @@ SQL код для раздела 1.3:
 
 Код на Python для фреймворка django (файл models.py):
 
-  *from django.db import models*
+`*from django.db import models*
 
-  *from django.contrib.auth.models import User*
+*from django.contrib.auth.models import User*
 
-  *class Category(models.Model):*
+*class Category(models.Model):*
 
-      *name = models.CharField(max\_length=255, unique=True)*
+    *name = models.CharField(max\_length=255, unique=True)*
 
-      *parent = models.ForeignKey(*
+    *parent = models.ForeignKey(*
 
-          *"self",*
+        *"self",*
 
-          *on\_delete=models.SET\_NULL,*
+        *on\_delete=models.SET\_NULL,*
 
-          *null=True,*
+        *null=True,*
 
-          *blank=True,*
+        *blank=True,*
 
-          *related\_name="subcategories"*
+        *related\_name="subcategories"*
 
-      *)*
+    *)*
 
-      *def \_\_str\_\_(self):*
+    *def \_\_str\_\_(self):*
 
-          *return self.name*
+        *return self.name*
 
-  *class Product(models.Model):*
+*class Product(models.Model):*
 
-      *name = models.CharField(max\_length=255)*
+    *name = models.CharField(max\_length=255)*
 
-      *description = models.TextField(blank=True)*
+    *description = models.TextField(blank=True)*
 
-      *price = models.DecimalField(max\_digits=10, decimal\_places=2)*
+    *price = models.DecimalField(max\_digits=10, decimal\_places=2)*
 
-      *stock = models.PositiveIntegerField()*
+    *stock = models.PositiveIntegerField()*
 
-      *category = models.ForeignKey(Category, on\_delete=models.PROTECT, related\_name="products")*
+    *category = models.ForeignKey(Category, on\_delete=models.PROTECT, related\_name="products")*
 
-      *created\_at = models.DateTimeField(auto\_now\_add=True)*
+    *created\_at = models.DateTimeField(auto\_now\_add=True)*
 
-      *def \_\_str\_\_(self):*
+    *def \_\_str\_\_(self):*
 
-          *return self.name*
+        *return self.name*
 
-  *class Order(models.Model):*
+*class Order(models.Model):*
 
-      *STATUS\_CHOICES = [*
+    *STATUS\_CHOICES = [*
 
-          *("created", "Создан"),*
+        *("created", "Создан"),*
 
-          *("paid", "Оплачен"),*
+        *("paid", "Оплачен"),*
 
-          *("shipped", "Отправлен"),*
+        *("shipped", "Отправлен"),*
 
-          *("completed", "Завершён"),*
+        *("completed", "Завершён"),*
 
-          *("cancelled", "Отменён"),*
+        *("cancelled", "Отменён"),*
 
-      *]*
+    *]*
 
-      *user = models.ForeignKey(User, on\_delete=models.CASCADE, related\_name="orders")*
+    *user = models.ForeignKey(User, on\_delete=models.CASCADE, related\_name="orders")*
 
-      *status = models.CharField(max\_length=20, choices=STATUS\_CHOICES, default="created")*
+    *status = models.CharField(max\_length=20, choices=STATUS\_CHOICES, default="created")*
 
-      *created\_at = models.DateTimeField(auto\_now\_add=True)*
+    *created\_at = models.DateTimeField(auto\_now\_add=True)*
 
-      *updated\_at = models.DateTimeField(auto\_now=True)*
+    *updated\_at = models.DateTimeField(auto\_now=True)*
 
-      *def \_\_str\_\_(self):*
+    *def \_\_str\_\_(self):*
 
-          *return f"Order #{self.id}"*
+        *return f"Order #{self.id}"*
 
-  *class OrderItem(models.Model):*
+*class OrderItem(models.Model):*
 
-      *order = models.ForeignKey(Order, on\_delete=models.CASCADE, related\_name="items")*
+    *order = models.ForeignKey(Order, on\_delete=models.CASCADE, related\_name="items")*
 
-      *product = models.ForeignKey(Product, on\_delete=models.PROTECT)*
+    *product = models.ForeignKey(Product, on\_delete=models.PROTECT)*
 
-      *price = models.DecimalField(max\_digits=10, decimal\_places=2)  # фиксирует цену*
+    *price = models.DecimalField(max\_digits=10, decimal\_places=2)  # фиксирует цену*
 
-      *quantity = models.PositiveIntegerField()*
+    *quantity = models.PositiveIntegerField()*
 
-      *def \_\_str\_\_(self):*
+    *def \_\_str\_\_(self):*
 
-          *return f"{self.product.name} × {self.quantity}"*
+        *return f"{self.product.name} × {self.quantity}"*
 
-  *class Cart(models.Model):*
+*class Cart(models.Model):*
 
-      *user = models.OneToOneField(User, on\_delete=models.CASCADE, related\_name="cart")*
+    *user = models.OneToOneField(User, on\_delete=models.CASCADE, related\_name="cart")*
 
-      *def \_\_str\_\_(self):*
+    *def \_\_str\_\_(self):*
 
-          *return f"Cart of {self.user.username}"*
+        *return f"Cart of {self.user.username}"*
 
-  *class CartItem(models.Model):*
+*class CartItem(models.Model):*
 
-      *cart = models.ForeignKey(Cart, on\_delete=models.CASCADE, related\_name="items")*
+    *cart = models.ForeignKey(Cart, on\_delete=models.CASCADE, related\_name="items")*
 
-      *product = models.ForeignKey(Product, on\_delete=models.CASCADE)*
+    *product = models.ForeignKey(Product, on\_delete=models.CASCADE)*
 
-      *quantity = models.PositiveIntegerField()*
+    *quantity = models.PositiveIntegerField()*
 
-      *class Meta:*
+    *class Meta:*
 
-          *unique\_together = ("cart", "product")*
+        *unique\_together = ("cart", "product")*
 
-      *def \_\_str\_\_(self):*
+    *def \_\_str\_\_(self):*
 
-          *return f"{self.product.name} × {self.quantity}"*
+        *return f"{self.product.name} × {self.quantity}"*`
