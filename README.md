@@ -134,7 +134,7 @@
 - Устранение неоднозначностей - концептуальная модель помогает выявлять противоречия в требованиях и устранять различное понимание терминов.
 - Создание основы для последующих этапов - от качества концептуальной схемы зависит корректность логической модели и, следовательно, всей базы данных.
 
-`	`Концептуальная модель представляет данные в виде объектов и их отношений. Наиболее распространённым способом является ER-модель (Entity-Relationship). 
+	Концептуальная модель представляет данные в виде объектов и их отношений. Наиболее распространённым способом является ER-модель (Entity-Relationship). 
 
 ER-модель включает следующие составляющие:
 
@@ -175,9 +175,9 @@ ER-модель включает следующие составляющие:
 - Order - заказ
 - OrderItem - позиция заказа
 
-`	`Теперь определим, какие свойства нас интересуют у выделенных сущностей.
+	Теперь определим, какие свойства нас интересуют у выделенных сущностей.
 
-`	`Атрибуты:
+	Атрибуты:
 
 - Покупатель: имя, email, дата регистрации;
 - Категория товара: имя, категория родитель (для построение иерархии категорий);
@@ -185,7 +185,7 @@ ER-модель включает следующие составляющие:
 - Заказ: покупатель, статус, дата создания, дата обновления;
 - Позиция заказа: заказ, товар, цена, количество.
 
-`	`Затем определим связи, проглядывающие, между сущностями.
+	Затем определим связи, проглядывающие, между сущностями.
 
 Связи:
 
@@ -194,15 +194,15 @@ ER-модель включает следующие составляющие:
 - Order 1 - N OrderItem
 - Product 1 - N OrderItem
 
-`	`Таким образом получаем схему сущностей показанную на рисунке 1.
+	Таким образом получаем схему сущностей показанную на рисунке 1.
 
-![БД интернет-магазин](Aspose.Words.9890b83f-5d53-403d-8461-244b1aab54d6.001.jpeg)
+![БД интернет-магазин](БД_интернет-магазин.jpg)
 
 Рисунок 1 - схема логической модели
 
 базы данных интернет-магазина
 
-`	`На этом разработка концептуальной модели в нашем примере заканчивается. Следует понимать, что данный пример концептуальной модели не позволит нам разработать базу данных для реального использования, так как в реальности нам потребуется учитывать намного больше сущностей и их свойств, для корректного функционирования интернет-магазина, однако, ка пример поможет нам понять суть концептуального проектирования.
+	На этом разработка концептуальной модели в нашем примере заканчивается. Следует понимать, что данный пример концептуальной модели не позволит нам разработать базу данных для реального использования, так как в реальности нам потребуется учитывать намного больше сущностей и их свойств, для корректного функционирования интернет-магазина, однако, ка пример поможет нам понять суть концептуального проектирования.
 ## <a name="_toc8371"></a>**1.2. Логическое проектирование**
 Логическое проектирование реляционных баз данных - это этап разработки БД, на котором создаётся логическая модель данных, независимая от конкретной СУБД, но отражающая нужды предметной области и обеспечивающая корректность, непротиворечивость и эффективность хранения данных.
 
@@ -214,7 +214,7 @@ ER-модель включает следующие составляющие:
 - какие ограничения целостности нужны,
 - в каких нормальных формах должны быть таблицы.
 
-`	`Основные шаги логического проектирования:
+	Основные шаги логического проектирования:
 
 1. Преобразование сущностей в таблицы
 
@@ -268,7 +268,7 @@ ER-модель включает следующие составляющие:
 - выбирают способы хранения связей,
 - анализируют частые запросы.
 
-`	`Продолжим проектирование базы данных для нашего примера - интернет-магазина. Логическая модель состоит из 5 таблиц по 5 сущностям обозначенным в примере в разделе 1.2. Опишем какой тип имеют поля сущностей и манимальный набор ограничений.
+	Продолжим проектирование базы данных для нашего примера - интернет-магазина. Логическая модель состоит из 5 таблиц по 5 сущностям обозначенным в примере в разделе 1.2. Опишем какой тип имеют поля сущностей и манимальный набор ограничений.
 
 Таблица 1.2.1: Покупатель
 
@@ -314,7 +314,7 @@ ER-модель включает следующие составляющие:
 |Цена|числовое|не пустое|
 |Количество|числовое|не пустое|
 
-`	`Как можно заметить в таблице 1.2.5 используется поле «Цена», хотя такое поле уже есть у сущности «Товар», которая также включается как поле этой же таблицы. Причина такого решения в том, что цена на товары могут меняться, однако, цена уже купленного товара, хранящегося в таблице с позициями товаров в заказе, - не должна.
+	Как можно заметить в таблице 1.2.5 используется поле «Цена», хотя такое поле уже есть у сущности «Товар», которая также включается как поле этой же таблицы. Причина такого решения в том, что цена на товары могут меняться, однако, цена уже купленного товара, хранящегося в таблице с позициями товаров в заказе, - не должна.
 ## <a name="_toc16862"></a>**1.3. Физическое проектирование**
 Физическое проектирование реляционных баз данных - это этап, на котором логическая модель преобразуется в конкретную структуру хранения данных в выбранной СУБД с учётом производительности, объёмов данных, требований к отказоустойчивости и особенностей конкретной платформы (PostgreSQL, MySQL, Oracle, SQL Server и др.).
 
@@ -415,7 +415,7 @@ ER-модель включает следующие составляющие:
 - денормализация,
 - материализованные представления.
 
-`	`Теперь рассмотрим физическое проектирование на примере интернет-магазина. В разделе 1.3 мы составили таблицы для каждой сущности. Теперь конкретезируем эти таблицы, а затем опишем SQL-код для их создания.
+	Теперь рассмотрим физическое проектирование на примере интернет-магазина. В разделе 1.3 мы составили таблицы для каждой сущности. Теперь конкретезируем эти таблицы, а затем опишем SQL-код для их создания.
 
 Таблица 1.3.1: Покупатель (User)
 
@@ -466,19 +466,19 @@ ER-модель включает следующие составляющие:
 |price|numeric(10, 2)|not null|
 |quantity|int|not null|
 
-`	`Как можно увидеть в таблицах 1.3.1 - 1.3.5, мы используем поле «id» типа «PK» с ограничением «serial» в качестве ключа, что означает, что мы полагаемся на СУБД в генерации ключей как последовательных целых чисел.
+	Как можно увидеть в таблицах 1.3.1 - 1.3.5, мы используем поле «id» типа «PK» с ограничением «serial» в качестве ключа, что означает, что мы полагаемся на СУБД в генерации ключей как последовательных целых чисел.
 
-`	`Схему физической можели можно увидель на рисунке 2.
+	Схему физической можели можно увидель на рисунке 2.
 
-![БД интернет-магазин-Страница-2](Aspose.Words.9890b83f-5d53-403d-8461-244b1aab54d6.002.jpeg)
+![БД интернет-магазин-Страница-2](БД_интернет-магазин-Страница-2.jpg)
 
 Рисунок 2 - схема физической модели 
 
 базы данных интернет-магазина
 
-`	`Кроме всего прочего, на этом этапе нам нужно включить индексы, ограничения связи и прочие ограничения, интересующих нас сущностей. Начнем с индексов.
+	Кроме всего прочего, на этом этапе нам нужно включить индексы, ограничения связи и прочие ограничения, интересующих нас сущностей. Начнем с индексов.
 
-`	`Имеет смысл включить следующие индексы, для ускорения поиска по таблицам:
+	Имеет смысл включить следующие индексы, для ускорения поиска по таблицам:
 
 - Индексы по ключам таблиц (User.id, Category.id, Product.id, Order.id, OrderItem.id). Такие индексы обычно автоматически генерируются СУБД.
 - Индекс по категории продукта (Product.categoty\_id)
@@ -489,9 +489,9 @@ ER-модель включает следующие составляющие:
 - Индекс для покупателя в заказах (Order.user\_id)
 - Индекс по статусу заказа (Order.status)
 
-`	`Все связи у нас являются каскадными, то есть при удалении из одной записи, все записи ссылающиеся на удаляемую запись из других сущностей будут также стираться.
+	Все связи у нас являются каскадными, то есть при удалении из одной записи, все записи ссылающиеся на удаляемую запись из других сущностей будут также стираться.
 
-`	`Также стоит ограничить количество товаров в позиции заказа быть больше 0 (т. е.  OrderItem.quantity > 0), цена товара была больше или равна 0 (в случае акций может быть 0, Product.price >= 0), количество товара на складе больше или равно 0 (Product.stock >= 0). 
+	Также стоит ограничить количество товаров в позиции заказа быть больше 0 (т. е.  OrderItem.quantity > 0), цена товара была больше или равна 0 (в случае акций может быть 0, Product.price >= 0), количество товара на складе больше или равно 0 (Product.stock >= 0). 
 
 SQL код для создания всех таблиц, индексов и ограничений приведен в приложении. Однако стоит помнить, что при использовании ORM, SQL код по созданию таблиц генерируется фреймворком автоматически, а потому нужды писать этот код самостоятельно нет.
 ## <a name="_toc20394"></a>**1.4. Реализация модели данных с помощью ORM**
@@ -505,11 +505,11 @@ ORM позволяет:
 - выполнять запросы к базе - через метод вызова, а не SQL-строки;
 - автоматически создавать и мигрировать структуру БД.
 
-`	`ORM технологии автоматически генерируют SQL-код так, что необходимость писать SQL-запросы вручную практически отпадает. Причем ORM позволяют использовать и чистый SQL код при необходимости.
+	ORM технологии автоматически генерируют SQL-код так, что необходимость писать SQL-запросы вручную практически отпадает. Причем ORM позволяют использовать и чистый SQL код при необходимости.
 
-`	`Рассмотрим достоинства и недостатки ORM-технологий.
+	Рассмотрим достоинства и недостатки ORM-технологий.
 
-`	`Достоинства:
+	Достоинства:
 
 - Скорость разработки - не нужно писать SQL для простых операций.
 - Модель как часть кода - все сущности описаны прямо в коде приложения.
@@ -517,13 +517,13 @@ ORM позволяет:
 - Портируемость - можно сменить СУБД, почти не меняя код (хотя не всегда легко).
 - Работа с данными как с объектами - особенно полезно в OO-приложениях.
 
-`	`Недостатки:
+	Недостатки:
 
 - Потенциальная потеря производительности - особенно заметна при неявных JOIN или N+1 запросах, а также ORM абстрагирует SQL, но это может скрывать важные детали оптимизации.
 - Недостаток гибкости - при очень сложных запросах проще и быстрее использовать «сырой» SQL.
 - Невозможность полной настройки - ORM за абстракцией скрывает некоторые особые возможности конкретных экземпляров СУБД и их не получается использовать без «сырого» SQL кода.
 
-`	`Код для django для примера интернет-магазина приведен в приложении.
+	Код для django для примера интернет-магазина приведен в приложении.
 # **Вывод**
 В данной работе мы рассмотрели процесс проектирования модели реляционной базы данных по всем этапам - от концептуального до физической реализации с помощью ORM. Разобрали каждый этап на примере интернет-магазина. А также написали работающий код реализации этой базы данных. В заключение хочется сказать, что проектирование и создание базы данных - это не легкий процесс, еще сложнее процесс интеграции этой базы данных с кодом приложения, потому так важны инструменты облегчающие этот процесс. ORM технологии - это яркий пример таких инструментов. Их использование сильно облегчает работу разработчикам, пусть эти инструменты и не лишены недостатков.
 # **Список литературы**
@@ -548,11 +548,11 @@ SQL код для раздела 1.3:
 
 *CREATE TABLE category (*
 
-`    `*id SERIAL PRIMARY KEY,*
+    *id SERIAL PRIMARY KEY,*
 
-`    `*name VARCHAR(255) UNIQUE NOT NULL,*
+    *name VARCHAR(255) UNIQUE NOT NULL,*
 
-`    `*parent\_id INTEGER REFERENCES category(id) ON DELETE SET NULL*
+    *parent\_id INTEGER REFERENCES category(id) ON DELETE SET NULL*
 
 *);*
 
@@ -568,19 +568,19 @@ SQL код для раздела 1.3:
 
 *CREATE TABLE product (*
 
-`    `*id SERIAL PRIMARY KEY,*
+    *id SERIAL PRIMARY KEY,*
 
-`    `*name VARCHAR(255) NOT NULL,*
+    *name VARCHAR(255) NOT NULL,*
 
-`    `*description TEXT,*
+    *description TEXT,*
 
-`    `*price NUMERIC(10, 2) NOT NULL CHECK (price >= 0),*
+    *price NUMERIC(10, 2) NOT NULL CHECK (price >= 0),*
 
-`    `*stock INTEGER NOT NULL CHECK (stock >= 0),*
+    *stock INTEGER NOT NULL CHECK (stock >= 0),*
 
-`    `*category\_id INTEGER NOT NULL REFERENCES category(id) ON DELETE RESTRICT,*
+    *category\_id INTEGER NOT NULL REFERENCES category(id) ON DELETE RESTRICT,*
 
-`    `*created\_at TIMESTAMP NOT NULL DEFAULT NOW()*
+    *created\_at TIMESTAMP NOT NULL DEFAULT NOW()*
 
 *);*
 
@@ -600,13 +600,13 @@ SQL код для раздела 1.3:
 
 *CREATE TABLE user (*
 
-`    `*id SERIAL PRIMARY KEY,*
+    *id SERIAL PRIMARY KEY,*
 
-`    `*username VARCHAR(150) UNIQUE NOT NULL,*
+    *username VARCHAR(150) UNIQUE NOT NULL,*
 
-`    `*email VARCHAR(255) UNIQUE NOT NULL,*
+    *email VARCHAR(255) UNIQUE NOT NULL,*
 
-`    `*date\_joined TIMESTAMP NOT NULL DEFAULT NOW()*
+    *date\_joined TIMESTAMP NOT NULL DEFAULT NOW()*
 
 *);*
 
@@ -618,15 +618,15 @@ SQL код для раздела 1.3:
 
 *CREATE TABLE "order" (*
 
-`    `*id SERIAL PRIMARY KEY,*
+    *id SERIAL PRIMARY KEY,*
 
-`    `*user\_id INTEGER NOT NULL REFERENCES user(id) ON DELETE CASCADE,*
+    *user\_id INTEGER NOT NULL REFERENCES user(id) ON DELETE CASCADE,*
 
-`    `*status VARCHAR(20) NOT NULL DEFAULT 'created',*
+    *status VARCHAR(20) NOT NULL DEFAULT 'created',*
 
-`    `*created\_at TIMESTAMP NOT NULL DEFAULT NOW(),*
+    *created\_at TIMESTAMP NOT NULL DEFAULT NOW(),*
 
-`    `*updated\_at TIMESTAMP NOT NULL DEFAULT NOW()*
+    *updated\_at TIMESTAMP NOT NULL DEFAULT NOW()*
 
 *);*
 
@@ -646,15 +646,15 @@ SQL код для раздела 1.3:
 
 *CREATE TABLE order\_item (*
 
-`    `*id SERIAL PRIMARY KEY,*
+    *id SERIAL PRIMARY KEY,*
 
-`    `*order\_id INTEGER NOT NULL REFERENCES "order"(id) ON DELETE CASCADE,*
+    *order\_id INTEGER NOT NULL REFERENCES "order"(id) ON DELETE CASCADE,*
 
-`    `*product\_id INTEGER NOT NULL REFERENCES product(id) ON DELETE RESTRICT,*
+    *product\_id INTEGER NOT NULL REFERENCES product(id) ON DELETE RESTRICT,*
 
-`    `*price NUMERIC(10,2) NOT NULL CHECK (price >= 0),*
+    *price NUMERIC(10,2) NOT NULL CHECK (price >= 0),*
 
-`    `*quantity INTEGER NOT NULL CHECK (quantity > 0)*
+    *quantity INTEGER NOT NULL CHECK (quantity > 0)*
 
 *);*
 
@@ -672,106 +672,106 @@ SQL код для раздела 1.3:
 
 *class Category(models.Model):*
 
-`    `*name = models.CharField(max\_length=255, unique=True)*
+    *name = models.CharField(max\_length=255, unique=True)*
 
-`    `*parent = models.ForeignKey(*
+    *parent = models.ForeignKey(*
 
-`        `*"self",*
+        *"self",*
 
-`        `*on\_delete=models.SET\_NULL,*
+        *on\_delete=models.SET\_NULL,*
 
-`        `*null=True,*
+        *null=True,*
 
-`        `*blank=True,*
+        *blank=True,*
 
-`        `*related\_name="subcategories"*
+        *related\_name="subcategories"*
 
-`    `*)*
+    *)*
 
-`    `*def \_\_str\_\_(self):*
+    *def \_\_str\_\_(self):*
 
-`        `*return self.name*
+        *return self.name*
 
 *class Product(models.Model):*
 
-`    `*name = models.CharField(max\_length=255)*
+    *name = models.CharField(max\_length=255)*
 
-`    `*description = models.TextField(blank=True)*
+    *description = models.TextField(blank=True)*
 
-`    `*price = models.DecimalField(max\_digits=10, decimal\_places=2)*
+    *price = models.DecimalField(max\_digits=10, decimal\_places=2)*
 
-`    `*stock = models.PositiveIntegerField()*
+    *stock = models.PositiveIntegerField()*
 
-`    `*category = models.ForeignKey(Category, on\_delete=models.PROTECT, related\_name="products")*
+    *category = models.ForeignKey(Category, on\_delete=models.PROTECT, related\_name="products")*
 
-`    `*created\_at = models.DateTimeField(auto\_now\_add=True)*
+    *created\_at = models.DateTimeField(auto\_now\_add=True)*
 
-`    `*def \_\_str\_\_(self):*
+    *def \_\_str\_\_(self):*
 
-`        `*return self.name*
+        *return self.name*
 
 *class Order(models.Model):*
 
-`    `*STATUS\_CHOICES = [*
+    *STATUS\_CHOICES = [*
 
-`        `*("created", "Создан"),*
+        *("created", "Создан"),*
 
-`        `*("paid", "Оплачен"),*
+        *("paid", "Оплачен"),*
 
-`        `*("shipped", "Отправлен"),*
+        *("shipped", "Отправлен"),*
 
-`        `*("completed", "Завершён"),*
+        *("completed", "Завершён"),*
 
-`        `*("cancelled", "Отменён"),*
+        *("cancelled", "Отменён"),*
 
-`    `*]*
+    *]*
 
-`    `*user = models.ForeignKey(User, on\_delete=models.CASCADE, related\_name="orders")*
+    *user = models.ForeignKey(User, on\_delete=models.CASCADE, related\_name="orders")*
 
-`    `*status = models.CharField(max\_length=20, choices=STATUS\_CHOICES, default="created")*
+    *status = models.CharField(max\_length=20, choices=STATUS\_CHOICES, default="created")*
 
-`    `*created\_at = models.DateTimeField(auto\_now\_add=True)*
+    *created\_at = models.DateTimeField(auto\_now\_add=True)*
 
-`    `*updated\_at = models.DateTimeField(auto\_now=True)*
+    *updated\_at = models.DateTimeField(auto\_now=True)*
 
-`    `*def \_\_str\_\_(self):*
+    *def \_\_str\_\_(self):*
 
-`        `*return f"Order #{self.id}"*
+        *return f"Order #{self.id}"*
 
 *class OrderItem(models.Model):*
 
-`    `*order = models.ForeignKey(Order, on\_delete=models.CASCADE, related\_name="items")*
+    *order = models.ForeignKey(Order, on\_delete=models.CASCADE, related\_name="items")*
 
-`    `*product = models.ForeignKey(Product, on\_delete=models.PROTECT)*
+    *product = models.ForeignKey(Product, on\_delete=models.PROTECT)*
 
-`    `*price = models.DecimalField(max\_digits=10, decimal\_places=2)  # фиксирует цену*
+    *price = models.DecimalField(max\_digits=10, decimal\_places=2)  # фиксирует цену*
 
-`    `*quantity = models.PositiveIntegerField()*
+    *quantity = models.PositiveIntegerField()*
 
-`    `*def \_\_str\_\_(self):*
+    *def \_\_str\_\_(self):*
 
-`        `*return f"{self.product.name} × {self.quantity}"*
+        *return f"{self.product.name} × {self.quantity}"*
 
 *class Cart(models.Model):*
 
-`    `*user = models.OneToOneField(User, on\_delete=models.CASCADE, related\_name="cart")*
+    *user = models.OneToOneField(User, on\_delete=models.CASCADE, related\_name="cart")*
 
-`    `*def \_\_str\_\_(self):*
+    *def \_\_str\_\_(self):*
 
-`        `*return f"Cart of {self.user.username}"*
+        *return f"Cart of {self.user.username}"*
 
 *class CartItem(models.Model):*
 
-`    `*cart = models.ForeignKey(Cart, on\_delete=models.CASCADE, related\_name="items")*
+    *cart = models.ForeignKey(Cart, on\_delete=models.CASCADE, related\_name="items")*
 
-`    `*product = models.ForeignKey(Product, on\_delete=models.CASCADE)*
+    *product = models.ForeignKey(Product, on\_delete=models.CASCADE)*
 
-`    `*quantity = models.PositiveIntegerField()*
+    *quantity = models.PositiveIntegerField()*
 
-`    `*class Meta:*
+    *class Meta:*
 
-`        `*unique\_together = ("cart", "product")*
+        *unique\_together = ("cart", "product")*
 
-`    `*def \_\_str\_\_(self):*
+    *def \_\_str\_\_(self):*
 
-`        `*return f"{self.product.name} × {self.quantity}"*
+        *return f"{self.product.name} × {self.quantity}"*
